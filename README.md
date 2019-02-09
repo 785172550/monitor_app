@@ -52,3 +52,5 @@ django app for website monitoring
 
 ![image.png](https://upload-images.jianshu.io/upload_images/2407746-530853251e684e93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
    
+* admin panel
+![image.png](https://upload-images.jianshu.io/upload_images/2407746-66c06bf58ee9330a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
