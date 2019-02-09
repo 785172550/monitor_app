@@ -117,13 +117,13 @@
                         <th>Type</th>
                     </tr>
                     </tfoot>
-                    <tbody>
+                    <tbody id="tbody">
                     {% for url in urls %}
                         <tr>
                             <td>{{ url }}</td>
                             <td><span class="text-info">{{ url }}</span></td>
                             <td>UP</td>
-                            <td>1200ms</td>
+                            <td><div class="box">0 ms</div></td>
                             <td>Http</td>
                         </tr>
                     {% endfor %}

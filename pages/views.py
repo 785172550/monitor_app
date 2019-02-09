@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import json
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .utils import check_status, decode2list
 
 
 # Create your views here.
@@ -18,3 +20,12 @@ def index(request):
 
 def blank(request):
     return render(request, 'blank.html')
+
+
+def data_fresh(request):
+    user = request.user
+    urls = decode2list(user.myList)
+    res = {}
+    for url in urls:
+        res[url] = check_status(url)
+    return JsonResponse(res)
