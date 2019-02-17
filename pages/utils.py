@@ -9,8 +9,8 @@ def check_status(url):
         url = 'http://' + url
     try:
         res = requests.head(url)
-    except:
-        return {'status': 'DOWN', 'status_code': res.status_code, 'Time': 'Unknown'}
+    except :
+        return {'status': 'DOWN', 'status_code': "555", 'Time': 'Unknown'}
     else:
         time = Decimal(res.elapsed.total_seconds() * 1000).quantize(Decimal("0.00"))
         return {'status': 'UP', 'status_code': res.status_code, 'Time': str(time) + " ms"}
