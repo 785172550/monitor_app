@@ -22,7 +22,7 @@ def decode2list(content):
         lists = json_dec.decode(content)
         return lists
     else:
-        return None
+        return []
 
 
 def encode2str(lists):
