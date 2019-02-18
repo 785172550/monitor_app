@@ -167,3 +167,11 @@ STATIC_URL = '/static/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '572142719909-5kiam00ilsqpd6c58u8sq0rf0t9poi03.apps.googleusercontent.com'
 # Paste Secret Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'W2d7Xt6ylyGuEzpGaSU5VDAw'
+
+
+EMAIL_HOST=''
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'viptestfordjango@sina.com'
+EMAIL_HOST_PASSWORD = '******'
+EMAIL_USE_TLS = False
+EMAIL_FROM = 'viptestfordjango@sina.com'

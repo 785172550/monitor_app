@@ -27,5 +27,9 @@ def data_fresh(request):
     urls = decode2list(user.myList)
     res = {}
     for url in urls:
-        res[url] = check_status(url)
+        res[url] = check_status(url, user)
     return JsonResponse(res)
+
+
+def check_http():
+    pass
