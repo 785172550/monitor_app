@@ -14,7 +14,7 @@ def check_status(url, user):
     except:
         # send_notification(url, 'sean785172550@gmail.com')
         # send_notification(url, user.email)
-        return {'status': 'DOWN', 'status_code': "555", 'Time': 'Unknown'}
+        return {'status': 'DOWN', 'status_code': "No response", 'Time': 'Unknown'}
     else:
         time = Decimal(res.elapsed.total_seconds() * 1000).quantize(Decimal("0.00"))
         return {'status': 'UP', 'status_code': res.status_code, 'Time': str(time) + " ms"}
@@ -39,8 +39,7 @@ def encode2str(lists):
 
 urls = {}
 
-def send_notification(url, email):
-    pass
+# def send_notification(url, email):
     # if url not in urls:
         # urls[url] = currenttime
 
