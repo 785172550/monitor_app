@@ -57,6 +57,25 @@
                 </div>
 
                 <div class="col-xl-5 col-sm-6 mb-5">
+                    <div class="card text-white bg-primary o-hidden h-200">
+                        <div class="card-body">
+                            <div class="card-body-icon">
+                                <i class="fas fa-fw fa-comments"></i>
+                            </div>
+                            <form action="{% url 'sub_email' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="mr-5"> <input type="text" name="sub_email" class="form-control"
+                                            placeholder="Notification email:  {{ user.sub_email }}" required="required">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-danger">Change</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-5 col-sm-6 mb-5">
                     <div class="card text-white">
                         <textarea class="form-control bg-secondary text-white" rows="4" readonly>User subscribed website:
                     {{ user.myList }}

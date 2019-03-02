@@ -22,10 +22,16 @@ def blank(request):
     return render(request, 'blank.html')
 
 
+def settings(request):
+    return render(request, 'settings.html')
+
+
 def data_fresh(request):
     user = request.user
     urls = decode2list(user.myList)
     res = {}
+    if urls is None:
+        return JsonResponse(res)
     for url in urls:
         res[url] = check_status(url, user)
     return JsonResponse(res)

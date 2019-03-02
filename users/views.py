@@ -29,7 +29,8 @@ def signup(request):
                 message = 'email already exist!'
                 return render(request, 'register.html', locals())
 
-            new_user = CustomUser.objects.create_user(username=username, password=password1, email=email)
+            new_user = CustomUser.objects.create_user(username=username, password=password1, email=email,
+                                                      sub_email=email)
             new_user.save()
             return redirect('/users/login/')  # 自动跳转到登录页面
     else:
@@ -80,5 +81,11 @@ def addURL(request):
         return redirect('/index')
 
 
-def settings(request):
-    return render(request, 'settings.html')
+def sub_email(request):
+    if request.method == 'POST':
+        user = request.user
+        user.sub_email = request.POST.get("sub_email")
+        user.save()
+        return redirect('/settings')
+    else:
+        return redirect('/settings')

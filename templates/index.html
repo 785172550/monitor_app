@@ -30,110 +30,110 @@
 </head>
 
 <body id="page-top">
-{#<h1>Hi {{ user.username }}</h1>#}
-{% include "fragment/navbar.html" %}
-<div id="wrapper">
+    {#<h1>Hi {{ user.username }}</h1>#}
+    {% include "fragment/navbar.html" %}
+    <div id="wrapper">
 
-    {% include "fragment/side-bar.html" %}
+        {% include "fragment/side-bar.html" %}
 
-    <div id="content-wrapper">
-        {% if message %}
-        <div class="alert alert-warning">{{ message }}</div>
-        {% endif %}
+        <div id="content-wrapper">
+            {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
 
-        {% include "fragment/content-fluid.html" %}
+            {% include "fragment/content-fluid.html" %}
 
-        {% include "fragment/footer.html" %}
+            {% include "fragment/footer.html" %}
 
-        <div>
-            <p id="result"></p>
-            <p id="result2"></p>
-        </div>
-    </div>
-    <!-- /.content-wrapper -->
-
-</div>
-<!-- /#wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{% url 'login' %}">Logout</a>
+            <div>
+                <p id="result"></p>
+                <p id="result2"></p>
             </div>
         </div>
+        <!-- /.content-wrapper -->
+
     </div>
-</div>
+    <!-- /#wrapper -->
 
-<!-- Bootstrap core JavaScript-->
-<script src="/static/vendor/jquery/jquery.min.js"></script>
-<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Core plugin JavaScript-->
-<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{% url 'login' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Page level plugin JavaScript-->
-<script src="/static/vendor/datatables/jquery.dataTables.js"></script>
-<script src="/static/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="/static/js/sb-admin.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Demo scripts for this page-->
-<script src="/static/js/demo/datatables-demo.js"></script>
-<script>$.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        function refresh() {
-            $.getJSON("/data_fresh/", function (res) {
-                var tbody = $('#tbody');
-                tbody.empty();
-                Object.keys(res).forEach(function (key) {
-                    console.log(key)
-                    var tr = document.createElement("tr")
-                    var td1 = document.createElement("td");
-                    var td2 = document.createElement("td");
-                    var td3 = document.createElement("td");
-                    var td4 = document.createElement("td");
-                    var td5 = document.createElement("td");
-                    td1.innerHTML = key
-                    td2.innerHTML = '<span class="text-info">' + key + '</span>'
-                    if (res[key]['status'] == 'UP') {
-                        td3.innerHTML = '<div class="btn bg-success btn-sm text-white"><span class="glyphicon glyphicon-circle-arrow-up"></span> UP</div>';
-                    } else {
-                        td3.innerHTML = '<div class="btn bg-danger btn-sm text-white"><span class="glyphicon glyphicon-exclamation-sign"></span> DOWN</div>'
-                    }
+    <!-- Page level plugin JavaScript-->
+    <script src="/static/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="/static/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-                    td4.innerHTML = '<div class="box">' + res[key]['Time'] + '</div>'
-                    td5.innerHTML = '<span class="btn bg-info btn-sm text-white">Http</span>'
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-                    tr.appendChild(td3);
-                    tr.appendChild(td4);
-                    tr.appendChild(td5);
-                    tbody.append(tr);
-                });
-            })
-        }
-        refresh();
-        setInterval(refresh, 30000);
-    });
-</script>
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="/static/js/demo/datatables-demo.js"></script>
+    <script>$.ajaxSetup({ headers: { "X-CSRFToken": '{{ csrf_token }}' } });</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function refresh() {
+                $.getJSON("/data_fresh/", function (res) {
+                    var tbody = $('#tbody');
+                    tbody.empty();
+                    Object.keys(res).forEach(function (key) {
+                        console.log(key)
+                        var tr = document.createElement("tr")
+                        var td1 = document.createElement("td");
+                        var td2 = document.createElement("td");
+                        var td3 = document.createElement("td");
+                        var td4 = document.createElement("td");
+                        var td5 = document.createElement("td");
+                        td1.innerHTML = key
+                        td2.innerHTML = '<span class="text-info">' + key + '</span>'
+                        if (res[key]['status'] == 'UP') {
+                            td3.innerHTML = '<div class="btn bg-success btn-sm text-white"><span class="glyphicon glyphicon-circle-arrow-up"></span> UP</div>';
+                        } else {
+                            td3.innerHTML = '<div class="btn bg-danger btn-sm text-white"><span class="glyphicon glyphicon-exclamation-sign"></span> DOWN</div>'
+                        }
+
+                        td4.innerHTML = '<div class="box">' + res[key]['Time'] + '</div>'
+                        td5.innerHTML = '<span class="btn bg-info btn-sm text-white">Http</span>'
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+                        tr.appendChild(td5);
+                        tbody.append(tr);
+                    });
+                })
+            }
+            refresh();
+            setInterval(refresh, 40000);
+        });
+    </script>
 </body>
 
 </html>

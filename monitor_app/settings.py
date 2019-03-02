@@ -120,6 +120,8 @@ DATABASES = {
     }
 }
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
@@ -171,7 +173,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'W2d7Xt6ylyGuEzpGaSU5VDAw'
 
 EMAIL_HOST=''
 EMAIL_PORT = 25
-EMAIL_HOST_USER = 'viptestfordjango@sina.com'
-EMAIL_HOST_PASSWORD = '******'
+EMAIL_HOST_USER = 'sean785172550@gmail.com'
+EMAIL_HOST_PASSWORD = 'wh6411581'
 EMAIL_USE_TLS = False
-EMAIL_FROM = 'viptestfordjango@sina.com'
+EMAIL_FROM = 'sean785172550@gmail.com'
