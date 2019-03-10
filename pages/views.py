@@ -3,6 +3,10 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .utils import check_status, decode2list
+import time
+
+# to record response time about each requets
+response_time = {}
 
 
 # Create your views here.
@@ -34,7 +38,13 @@ def data_fresh(request):
         return JsonResponse(res)
     for url in urls:
         res[url] = check_status(url, user)
+
+    response_time[time.time()] = res
     return JsonResponse(res)
+
+
+def response_timemap(request):
+    return JsonResponse(response_time)
 
 
 def check_http():

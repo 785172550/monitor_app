@@ -80,6 +80,26 @@
         </div>
     </div>
 
+    <!-- delete alert -->
+    <div class="modal fade" id="message_alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete this row?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!-- <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{% url 'login' %}">Sure</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="/static/vendor/jquery/jquery.min.js"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -90,6 +110,7 @@
     <!-- Page level plugin JavaScript-->
     <script src="/static/vendor/datatables/jquery.dataTables.js"></script>
     <script src="/static/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- <script src="/static/vendor/datatables/dataTables.editor.min.js"></script> -->
 
     <!-- Custom scripts for all pages-->
     <script src="/static/js/sb-admin.min.js"></script>
@@ -99,19 +120,24 @@
     <script>$.ajaxSetup({ headers: { "X-CSRFToken": '{{ csrf_token }}' } });</script>
     <script type="text/javascript">
         $(document).ready(function () {
+
             function refresh() {
                 $.getJSON("/data_fresh/", function (res) {
                     var tbody = $('#tbody');
+                    var i = 1;
                     tbody.empty();
                     Object.keys(res).forEach(function (key) {
                         console.log(key)
                         var tr = document.createElement("tr")
+                        var td0 = document.createElement("td");
                         var td1 = document.createElement("td");
                         var td2 = document.createElement("td");
                         var td3 = document.createElement("td");
                         var td4 = document.createElement("td");
                         var td5 = document.createElement("td");
-                        td1.innerHTML = key
+                        td0.innerHTML = i;
+                        i = i + 1;
+                        td1.innerHTML = '<td><button class="btn btn-danger">Delete</button></td>'
                         td2.innerHTML = '<span class="text-info">' + key + '</span>'
                         if (res[key]['status'] == 'UP') {
                             td3.innerHTML = '<div class="btn bg-success btn-sm text-white"><span class="glyphicon glyphicon-circle-arrow-up"></span> UP</div>';
@@ -120,19 +146,59 @@
                         }
 
                         td4.innerHTML = '<div class="box">' + res[key]['Time'] + '</div>'
-                        td5.innerHTML = '<span class="btn bg-info btn-sm text-white">Http</span>'
-                        tr.appendChild(td1);
+                        if (res[key]['https']) {
+                            td5.innerHTML = '<span class="btn bg-success btn-sm text-white">Https</span>'
+                        } else {
+                            td5.innerHTML = '<span class="btn bg-info btn-sm text-white">Http</span>'
+                        }
+                        tr.appendChild(td0);
+                        // tr.appendChild(td1);
                         tr.appendChild(td2);
                         tr.appendChild(td3);
                         tr.appendChild(td4);
                         tr.appendChild(td5);
+                        tr.appendChild(td1); // delete button
                         tbody.append(tr);
                     });
+
                 })
             }
             refresh();
-            setInterval(refresh, 40000);
+            setInterval(refresh, 4000);
+
+            // add row numbers
+            var t = $('#dataTable1').DataTable({
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[1, 'asc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes()
+                    .each(function (ceil, i) { ceil.innerHTML = i + 1 })
+            }).draw();
+
+
+            t.on('click', 'button', function (e) {
+
+                var con = confirm("Delete this Row?")
+                if (con) {
+                    t.row($(this).parents('tr').remove().draw(false));
+                } else {
+
+                }
+                // editor.remove($(this).parents('tr'), {
+                //     title: "Delete Row",
+                //     message: "are you sure?",
+                //     buttons: 'Delete'
+                // })
+            })
         });
+
+
+
     </script>
 </body>
 

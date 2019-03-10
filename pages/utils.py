@@ -7,22 +7,27 @@ import time
 
 
 def check_status(url, user):
-    res = ''
+    is_https = False
     if 'http:' not in url:
         url = 'http://' + url
     try:
         # send head request
-        res = requests.head(url, timeou=5)
+        res = requests.head(url, allow_redirects=True)
     except:
         # send_notification(url, user.sub_email)
-        return {'status': 'DOWN', 'status_code': "No response", 'Time': 'Unknown'}
+        return {'status': 'DOWN', 'status_code': "No response", 'Time': 'Unknown', 'https': is_https, 'Time_number': None}
     else:
-        # status code >= 500 indicates there is server error, service unavailable
-        if res.status_code >= 500:
-            return {'status': 'DOWN', 'status_code': res.status_code, 'Time': str(time) + " ms"}
-        # milliseconds
         time = Decimal(res.elapsed.total_seconds() * 1000).quantize(Decimal("0.00"))
-        return {'status': 'UP', 'status_code': res.status_code, 'Time': str(time) + " ms"}
+        # status code >= 500 indicates there is server error, service unavailable
+        # redirect to https
+        if 'https' in res.url:
+            is_https = True
+
+        if res.status_code >= 500:
+            return {'status': 'DOWN', 'status_code': res.status_code, 'Time': str(time) + " ms", 'https': is_https,'Time_number': time}
+
+        # milliseconds
+        return {'status': 'UP', 'status_code': res.status_code, 'Time': str(time) + " ms", 'https': is_https,'Time_number': time}
 
 
 def decode2list(content):

@@ -71,7 +71,12 @@
                                 </div>
                                 <button type="submit" class="btn btn-danger">Change</button>
                             </form>
+                            <!--<button type="submit" class="btn btn-danger">Change</button>-->
                         </div>
+                        <button id="btn-send-test" type="button" class="btn btn-danger">Send Test Email</button>
+                        <!--<div class="btn btn-dark">-->
+                        <!--<a class="text-white" href="{% url 'send_test' %}">Send test email</a>-->
+                        <!--</div>-->
                     </div>
                 </div>
 
@@ -109,6 +114,21 @@
 
     <!-- Demo scripts for this page-->
     <script src="/static/js/demo/datatables-demo.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btn-send-test").click(function send_test() {
+                $.ajax({
+                    type: "GET",
+                    url: "/users/send_test",
+                    success: function (data) {
+                        alert('send email success, please check your email box.')
+                    }
+                })
+            });
+        });
+    </script>
+
 </body>
 
 </html>

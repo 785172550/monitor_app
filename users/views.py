@@ -3,6 +3,9 @@ from .forms import LoginForm, RegisterForm
 from .models import CustomUser
 from django.contrib.auth import login as slogin, authenticate, logout as slogout
 import json
+from django.core.mail import send_mail
+from monitor_app.settings import EMAIL_FROM
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -89,3 +92,12 @@ def sub_email(request):
         return redirect('/settings')
     else:
         return redirect('/settings')
+
+
+def send_test(request):
+    user  = request.user
+    email_title = 'Monitor App Notification Test'
+    email_body = 'Test Email'
+    email = user.sub_email
+    res = send_mail(email_title, email_body, EMAIL_FROM, [email])
+    return HttpResponse(res)
