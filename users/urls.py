@@ -9,5 +9,5 @@ urlpatterns = [
     path('addurl/', views.addURL, name='addurl'),
     path('sub_email/', views.sub_email, name='sub_email'),
     path('send_test/', views.send_test, name='send_test'),
-
+    path('delete_url/', views.delete_url, name='delete_url'),
 ]

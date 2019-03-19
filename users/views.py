@@ -95,9 +95,24 @@ def sub_email(request):
 
 
 def send_test(request):
-    user  = request.user
+    user = request.user
     email_title = 'Monitor App Notification Test'
     email_body = 'Test Email'
     email = user.sub_email
     res = send_mail(email_title, email_body, EMAIL_FROM, [email])
     return HttpResponse(res)
+
+
+def delete_url(request):
+    url = request.GET.get('name')
+    user = request.user
+    jsonDec = json.decoder.JSONDecoder()
+    if user.myList:
+        urls = jsonDec.decode(user.myList)
+        urls.remove(url)
+    else:
+        urls = []
+    user.myList = json.dumps(urls)
+    request.user = user
+    user.save()
+    return redirect('/index')

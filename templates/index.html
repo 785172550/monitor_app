@@ -164,7 +164,7 @@
                 })
             }
             refresh();
-            setInterval(refresh, 4000);
+            setInterval(refresh, 30000);
 
             // add row numbers
             var t = $('#dataTable1').DataTable({
@@ -185,15 +185,14 @@
 
                 var con = confirm("Delete this Row?")
                 if (con) {
+                    $.get('/users/delete_url',{name: $(this).parents('tr').children()[1].innerText}, function (data) {
+                        console.log(data);
+                    });
                     t.row($(this).parents('tr').remove().draw(false));
+
                 } else {
 
                 }
-                // editor.remove($(this).parents('tr'), {
-                //     title: "Delete Row",
-                //     message: "are you sure?",
-                //     buttons: 'Delete'
-                // })
             })
         });
 
