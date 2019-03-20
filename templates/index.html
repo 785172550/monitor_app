@@ -52,8 +52,11 @@
         </div>
         <!-- /.content-wrapper -->
 
+
+
     </div>
     <!-- /#wrapper -->
+
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -80,25 +83,6 @@
         </div>
     </div>
 
-    <!-- delete alert -->
-    <div class="modal fade" id="message_alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete this row?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <!-- <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{% url 'login' %}">Sure</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/static/vendor/jquery/jquery.min.js"></script>
@@ -117,6 +101,9 @@
 
     <!-- Demo scripts for this page-->
     <script src="/static/js/demo/datatables-demo.js"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="/static/js/line-chart.js"></script>
     <script>$.ajaxSetup({ headers: { "X-CSRFToken": '{{ csrf_token }}' } });</script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -127,7 +114,7 @@
                     var i = 1;
                     tbody.empty();
                     Object.keys(res).forEach(function (key) {
-                        console.log(key)
+//                        console.log(key)
                         var tr = document.createElement("tr")
                         var td0 = document.createElement("td");
                         var td1 = document.createElement("td");
@@ -194,9 +181,56 @@
 
                 }
             })
+
+            getResTime();
         });
 
+        function getResTime() {
+            var data1 = [];
 
+            $.getJSON("/response_timemap/", function (res) {
+                var keys = Object.keys(res);
+                var values =  Object.values(res);
+
+                var value1 = values[values.length-1];
+                var value2 = values[values.length-2];
+                var value3 = values[values.length-3];
+                var value4 = values[values.length-4];
+
+                var items1 = Object.entries(value1);
+                var items2 = Object.entries(value2);
+                var items3 = Object.entries(value3);
+                var items4 = Object.entries(value4);
+
+                for (var i = 0; i<items1.length && i<4;i++){
+                    data1[i]= [{'timestamp':1, 'yvalue': items4[i][1]['Time_number']}, {'timestamp':2, 'yvalue': items3[i][1]['Time_number']}, {'timestamp':3, 'yvalue': items2[i][1]['Time_number']}, {'timestamp':4, 'yvalue': items1[i][1]['Time_number']}]
+                }
+
+//                data1[0] = [{timestamp: 1, yvalue: 8167},{timestamp: 2, yvalue: 492},{timestamp: 3, yvalue: 2782}];
+                //control the number of point on x axis
+                var xnum = 4;
+                var chartid = "#linechart";
+
+                drawlinechart(chartid + '0',xnum, data1[0]);
+                drawlinechart(chartid + '1',xnum, data1[1]);
+                drawlinechart(chartid + '2',xnum, data1[2]);
+                drawlinechart(chartid + '3',xnum, data1[3]);
+            });
+
+        }
+
+
+        // draw chart
+//        var data = [{timestamp: 1990010101, yvalue: 8167},{timestamp: 1990010110, yvalue: 492},{timestamp: 1990010120, yvalue: 2782}];
+//        //console.log(data);
+//        var xnum = 3;//control the number of point on x axis
+//        var chartid = "#linechart";
+//        drawlinechart(chartid + '0',xnum, data);
+
+//        drawlinechart(chartid + '0',xnum, data1[0]);
+//        drawlinechart(chartid + '1',xnum，data1[1]);
+//        drawlinechart(chartid+ '2',xnum，data1[2]);
+//        drawlinechart(chartid+ '3',xnum，data1[3]);
 
     </script>
 </body>

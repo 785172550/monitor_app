@@ -70,3 +70,13 @@
         text-shadow: 0 0 4px #4cc134
     }
 }
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 3px;
+}
+
+.circle {
+    fill: steelblue;
+}
