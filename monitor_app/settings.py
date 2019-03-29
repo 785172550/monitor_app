@@ -170,10 +170,13 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '572142719909-5kiam00ilsqpd6c58u8sq0rf0t9poi03.a
 # Paste Secret Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'W2d7Xt6ylyGuEzpGaSU5VDAw'
 
-
+# smtp email server, you can change it
 EMAIL_HOST='smtp.163.com'
 EMAIL_PORT = 25
+
+# it would be better to change to your own email account
 EMAIL_HOST_USER = '18599995124@163.com'
+# this is not real password, it needs you to open your email POP3/SMTP service and get the auth code
 EMAIL_HOST_PASSWORD = 'wh170426'
 EMAIL_USE_TLS = False
 EMAIL_FROM = '18599995124@163.com'

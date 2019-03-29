@@ -14,9 +14,10 @@ def check_status(url, user):
         # send head request
         res = requests.head(url, allow_redirects=True)
     except:
-        # send_notification(url, user.sub_email)
+        send_notification(url, user.sub_email, True)
         return {'status': 'DOWN', 'status_code': "No response", 'Time': 'Unknown', 'https': is_https, 'Time_number': None}
     else:
+        send_notification(url, user.sub_email, False)
         time = Decimal(res.elapsed.total_seconds() * 1000).quantize(Decimal("0.00"))
         # status code >= 500 indicates there is server error, service unavailable
         # redirect to https
@@ -46,17 +47,18 @@ def encode2str(lists):
     else:
         return None
 
-
 urls = {}
-
-
-def send_notification(url, email):
-    if url not in urls:
+def send_notification(url, email, isdown):
+    if (url not in urls) and isdown:
         urls[url] = time.time()
-        return "add to list"
+        email_title = 'Server down: ' + url
+        email_body = "Email: from" + EMAIL_FROM + ', you subscribed server down: ' + url
+        send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
+        return send_status
     else:
-        if time.time() - urls[url] > 300000:  # 300 seconds
-            email_title = 'Server down'
-            email_body = "email: " + email
+        if (url in urls) and not isdown:
+            urls.pop(url)
+            email_title = 'Server up: ' + url
+            email_body = "Email: " + EMAIL_FROM + ', you subscribed server up: ' + url
             send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
             return send_status

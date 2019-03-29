@@ -189,9 +189,10 @@
             var data1 = [];
 
             $.getJSON("/response_timemap/", function (res) {
-                var keys = Object.keys(res);
+                // all websites response time for each timestamp
                 var values =  Object.values(res);
 
+                // latest 4 times
                 var value1 = values[values.length-1];
                 var value2 = values[values.length-2];
                 var value3 = values[values.length-3];
@@ -202,11 +203,12 @@
                 var items3 = Object.entries(value3);
                 var items4 = Object.entries(value4);
 
+                // put latest 4 times of each website into array to prepare data
                 for (var i = 0; i<items1.length && i<4;i++){
                     data1[i]= [{'timestamp':1, 'yvalue': items4[i][1]['Time_number']}, {'timestamp':2, 'yvalue': items3[i][1]['Time_number']}, {'timestamp':3, 'yvalue': items2[i][1]['Time_number']}, {'timestamp':4, 'yvalue': items1[i][1]['Time_number']}]
                 }
-
 //                data1[0] = [{timestamp: 1, yvalue: 8167},{timestamp: 2, yvalue: 492},{timestamp: 3, yvalue: 2782}];
+
                 //control the number of point on x axis
                 var xnum = 4;
                 var chartid = "#linechart";
