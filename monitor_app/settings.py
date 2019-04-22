@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',  # new
     'social_django',
+    'whitenoise.runserver_nostatic',
 
     'pages',  # new
     'users',
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # white noise
 ]
 
 ROOT_URLCONF = 'monitor_app.urls'
@@ -163,7 +165,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '572142719909-5kiam00ilsqpd6c58u8sq0rf0t9poi03.apps.googleusercontent.com'
