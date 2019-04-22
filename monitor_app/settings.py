@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',  # new
     'social_django',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
 
     'pages',  # new
     'users',
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # white noise
+    # 'whitenoise.middleware.WhiteNoiseMiddleware', # white noise
 ]
 
 ROOT_URLCONF = 'monitor_app.urls'
