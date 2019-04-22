@@ -24,7 +24,7 @@ SECRET_KEY = '9wopkaad&l$l8-%m3%g3^zocb$kdf=!zyujrpvoj62-ndu@dab'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['zxh-monitor.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -111,16 +111,27 @@ WSGI_APPLICATION = 'monitor_app.wsgi.application'
 #     }
 # }
 
+from decouple import config
+import dj_database_url
+
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydb',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mydb',
+#         'USER': 'admin',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
